@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hudl Video Inspo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@600;700&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Hudl brand palette — light mode */
+  --bg:#F4F5F7;
+  --surface:#FFFFFF;
+  --surface2:#ECEEF1;
+  --surface3:#E0E3E8;
+  --border:#D2D7DE;
+  --border-hi:#B1BCC4;
+  --text:#101417;         /* Hudl Black */
+  --text-2:#4E5D6C;       /* Typewriter */
+  --text-3:#8899A6;
+  --accent:#FF6300;       /* Hudl Orange */
+  --accent-hover:#FF5000; /* Agile Orange */
+  --accent-inv:#FFFFFF;
+  --tag-bg:#ECEEF1;
+  --tag-text:#4E5D6C;
+  --tag-active-bg:rgba(255,99,0,0.1);
+  --tag-active-text:#CC4E00;
+  --tag-active-border:rgba(255,99,0,0.35);
+  --green:#16A34A;
+  --red:#FF5000;
+}
+
+html,body{height:100%;font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;overflow-x:hidden}
+
+/* ── Header ── */
+header{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--border);padding:0 32px}
+.header-top{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.wordmark{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.04em;color:var(--text);flex-shrink:0;user-select:none;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.wordmark-sep{width:1px;height:14px;background:var(--border-hi);display:inline-block}
+.wordmark-sub{font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;letter-spacing:.01em;text-transform:none;color:var(--text-2)}
+.search-wrap{flex:1;max-width:340px;position:relative}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text-3);pointer-events:none}
+.search-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px 7px 30px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.search-input::placeholder{color:var(--text-3)}
+.search-input:focus{border-color:var(--border-hi)}
+.add-btn{display:flex;align-items:center;gap:6px;background:var(--accent);color:var(--accent-inv);border:none;border-radius:6px;padding:8px 16px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;transition:background .15s;flex-shrink:0;white-space:nowrap}
+.add-btn:hover{background:var(--accent-hover)}
+.add-btn svg{width:12px;height:12px}
+
+/* ── Filter rows ── */
+.header-filters{display:flex;flex-direction:column;gap:2px;padding:6px 0}
+.filter-row-wrap{display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;min-height:32px}
+.filter-row-wrap::-webkit-scrollbar{display:none}
+.filter-section-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);flex-shrink:0;padding:0 2px}
+.filter-row{display:flex;gap:4px;align-items:center;flex-wrap:nowrap}
+.pill{background:transparent;border:1px solid transparent;color:var(--text-3);border-radius:4px;padding:3px 10px;font-family:'Barlow',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .12s;white-space:nowrap}
+.pill:hover{color:var(--text-2);border-color:var(--border)}
+.pill.active{color:var(--text);border-color:var(--border-hi);background:var(--surface2)}
+.pill.tag-active{color:var(--tag-active-text);border-color:var(--tag-active-border);background:var(--tag-active-bg)}
+.view-sort{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
+.sort-select{background:transparent;border:none;font-family:'Barlow',sans-serif;font-size:12px;color:var(--text-3);outline:none;cursor:pointer;appearance:none}
+.view-btns{display:flex;gap:2px}
+.view-btn{background:transparent;border:none;padding:4px;border-radius:4px;color:var(--text-3);cursor:pointer;transition:all .12s;display:flex}
+.view-btn svg{width:14px;height:14px}
+.view-btn.active{color:var(--text);background:var(--surface3)}
+
+/* ── Main ── */
+main{padding:28px 32px 80px}
+.stats{font-size:11px;color:var(--text-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px;font-weight:500}
+.sync-badge{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text-3);letter-spacing:.04em}
+.sync-dot{width:5px;height:5px;border-radius:50%;background:var(--text-3)}
+.sync-dot.live{background:var(--green)}
+
+/* ── Grid ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--border)}
+.grid.list-view{grid-template-columns:1fr}
+.card{background:var(--surface);cursor:pointer;transition:background .12s;display:flex;flex-direction:column;position:relative}
+.card:hover{background:var(--surface2)}
+.grid.list-view .card{flex-direction:row;align-items:stretch}
+.card-thumb-wrap{width:100%;aspect-ratio:16/9;background:var(--surface2);overflow:hidden;flex-shrink:0;position:relative}
+.grid.list-view .card-thumb-wrap{width:120px;height:72px;aspect-ratio:unset}
+.card-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.card-thumb-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.card-thumb-empty svg{width:20px;height:20px;color:var(--text-3)}
+.fetch-spinner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface2)}
+.spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--text-3);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card-top{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.plat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.by{font-size:11px;color:var(--text-3)}
+.card-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.card-note{font-style:italic;font-size:12px;color:var(--text-2);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.tag{font-size:10px;font-weight:500;background:var(--tag-bg);color:var(--tag-text);border-radius:3px;padding:2px 6px;letter-spacing:.03em;border:1px solid var(--border);cursor:pointer;transition:all .12s}
+.tag:hover{background:var(--tag-active-bg);color:var(--tag-active-text);border-color:var(--tag-active-border)}
+.ext-link{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:5px;padding:5px;color:var(--text-2);display:flex;opacity:0;transition:opacity .12s;backdrop-filter:blur(4px)}
+.card:hover .ext-link{opacity:1}
+.ext-link svg{width:11px;height:11px}
+.empty{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:72px 24px;color:var(--text-3);text-align:center}
+.empty-icon{width:48px;height:48px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;background:var(--surface2)}
+.empty-icon svg{width:22px;height:22px}
+.empty p{font-size:13px;font-weight:500}
+.empty small{font-size:13px;color:var(--text-3);max-width:280px;line-height:1.6}
+
+/* ── Modals ── */
+.overlay{position:fixed;inset:0;background:rgba(16,20,23,.45);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.overlay.hidden{display:none}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:18px}
+.modal-hd{display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text)}
+.close-btn{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px;color:var(--text-2);cursor:pointer;display:flex;transition:all .12s}
+.close-btn:hover{border-color:var(--border-hi);color:var(--text)}
+.close-btn svg{width:13px;height:13px}
+.field{display:flex;flex-direction:column;gap:6px}
+.label{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
+.inp,.ta,.sel{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:9px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s;width:100%}
+.inp::placeholder,.ta::placeholder{color:var(--text-3)}
+.inp:focus,.ta:focus,.sel:focus{border-color:var(--border-hi)}
+.ta{resize:vertical;min-height:76px;line-height:1.55;font-style:italic;font-size:13px}
+.sel{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%2344445C' d='M4 6l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:7px 8px;cursor:text}
+.tags-wrap:focus-within{border-color:var(--border-hi)}
+.tag-chip{display:flex;align-items:center;gap:4px;background:var(--tag-active-bg);border:1px solid var(--tag-active-border);border-radius:4px;padding:2px 7px;font-size:11px;color:var(--tag-active-text);font-weight:500}
+.tag-chip button{background:none;border:none;color:var(--tag-active-text);cursor:pointer;font-size:14px;line-height:1;padding:0;opacity:.6}
+.tag-chip button:hover{opacity:1}
+.tag-inp{background:transparent;border:none;outline:none;font-family:'Barlow',sans-serif;font-size:12px;color:var(--text);flex:1;min-width:90px}
+.tag-inp::placeholder{color:var(--text-3)}
+
+/* ── Thumbnail section ── */
+.thumb-preview-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--border);background:var(--surface2);display:none}
+.thumb-preview-wrap.on{display:block}
+.thumb-preview-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb-fetching{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--surface2)}
+.thumb-fetching.hidden{display:none}
+.thumb-fetching span{font-size:11px;color:var(--text-3)}
+.thumb-change-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:rgba(255,255,255,.95);border-radius:0 0 7px 7px;border-top:1px solid var(--border);position:absolute;bottom:0;left:0;right:0;opacity:0;transition:opacity .15s}
+.thumb-preview-wrap:hover .thumb-change-bar{opacity:1}
+.thumb-source-badge{font-size:10px;color:var(--text-2);font-family:'Barlow',sans-serif;letter-spacing:.03em}
+.thumb-change-btn{font-size:11px;font-weight:500;color:var(--text-2);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 9px;cursor:pointer;font-family:'Barlow',sans-serif;transition:all .12s}
+.thumb-change-btn:hover{border-color:var(--border-hi);color:var(--text)}
+.upload-zone{border:1px dashed var(--border-hi);border-radius:7px;padding:18px;text-align:center;cursor:pointer;color:var(--text-3);transition:all .12s;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px}
+.upload-zone:hover{border-color:var(--accent);color:var(--text-2);background:var(--surface2)}
+.upload-zone svg{width:20px;height:20px}
+.upload-zone input{display:none}
+.submit{background:var(--accent);color:var(--accent-inv);border:none;border-radius:7px;padding:11px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;width:100%;transition:background .15s;margin-top:2px}
+.submit:hover{background:var(--accent-hover)}
+
+/* ── Detail modal ── */
+.detail-overlay{position:fixed;inset:0;background:rgba(16,20,23,.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
+.detail-overlay.hidden{display:none}
+.detail-modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto}
+.detail-thumb-wrap{position:relative;border-radius:13px 13px 0 0;overflow:hidden}
+.detail-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.detail-thumb-empty{width:100%;aspect-ratio:16/9;background:var(--surface2);display:flex;align-items:center;justify-content:center;border-radius:13px 13px 0 0}
+.detail-thumb-edit{position:absolute;bottom:10px;right:10px;display:flex;gap:6px;opacity:0;transition:opacity .15s}
+.detail-thumb-wrap:hover .detail-thumb-edit{opacity:1}
+.detail-thumb-edit label,.detail-thumb-edit button{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:5px;padding:5px 10px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;color:var(--text);cursor:pointer;backdrop-filter:blur(4px)}
+.detail-thumb-edit label:hover,.detail-thumb-edit button:hover{background:var(--surface);border-color:var(--border-hi)}
+.detail-thumb-edit svg{width:11px;height:11px}
+.detail-thumb-edit input{display:none}
+.detail-body{padding:22px 26px 26px;display:flex;flex-direction:column;gap:14px}
+.detail-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.detail-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;line-height:1.2;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.02em}
+.detail-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.detail-note{font-style:italic;font-size:14px;color:var(--text-2);line-height:1.65;border-left:2px solid var(--accent);padding-left:14px}
+.detail-ft{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:14px;border-top:1px solid var(--border)}
+.open-btn,.del-btn{display:flex;align-items:center;gap:6px;border-radius:7px;padding:8px 14px;font-family:'Barlow',sans-serif;font-size:12px;font-weight:600;letter-spacing:.03em;cursor:pointer;transition:all .12s;text-decoration:none;text-transform:uppercase}
+.open-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text)}
+.open-btn:hover{border-color:var(--border-hi)}
+.open-btn svg,.del-btn svg{width:12px;height:12px}
+.del-btn{background:transparent;border:1px solid var(--border);color:var(--text-3)}
+.del-btn:hover{border-color:rgba(227,0,15,.4);color:var(--red)}
+
+/* ── Worker config banner ── */
+.config-banner{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:12px;color:var(--text-2)}
+.config-banner svg{width:14px;height:14px;flex-shrink:0;color:var(--text-3)}
+.config-banner a{color:var(--accent);font-weight:600;text-decoration:none}
+.config-banner a:hover{text-decoration:underline}
+.config-banner.hidden{display:none}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--text);z-index:200;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all .22s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 20px rgba(16,20,23,.12)}
+.toast.on{transform:translateY(0);opacity:1}
+.toast-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* ── Tag suggestions ── */
+.tag-suggestions{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px}
+.tag-suggest-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);width:100%;margin-bottom:4px}
+.tag-suggest{background:var(--surface);border:1px solid var(--border);color:var(--text-2);border-radius:4px;padding:3px 10px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:all .12s}
+.tag-suggest:hover{border-color:var(--border-hi);color:var(--text)}
+.tag-suggest.used{background:var(--tag-active-bg);border-color:var(--tag-active-border);color:var(--tag-active-text);cursor:pointer}
+.tag-suggest.used:hover{opacity:.8}
+
+/* ── Active tag filter clear button ── */
+.tag-filter-clear{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:none;border:none;cursor:pointer;padding:3px 8px;flex-shrink:0}
+.tag-filter-clear:hover{opacity:.7}
+
+/* ── Tag pill with delete ── */
+.tag-pill-wrap{position:relative;display:inline-flex;align-items:center}
+.tag-pill-wrap .pill{padding-right:22px}
+.tag-del{position:absolute;right:5px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-3);cursor:pointer;font-size:13px;line-height:1;padding:0 1px;display:none;transition:color .1s}
+.tag-pill-wrap:hover .tag-del{display:block}
+.tag-del:hover{color:var(--red)}
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="wordmark">
+      Hudl
+      <span class="wordmark-sep"></span>
+      <span class="wordmark-sub">Video Inspo</span>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search videos, notes, tags…" oninput="render()">
+    </div>
+<button class="add-btn" onclick="openAdd()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>
+      Add video
+    </button>
+  </div>
+  <div class="header-filters">
+    <div class="filter-row-wrap">
+      <span class="filter-section-label">Platform</span>
+      <div class="filter-row" id="platRow">
+        <button class="pill active" onclick="setPlatFilter('all',this)">All</button>
+        <button class="pill" onclick="setPlatFilter('instagram',this)">Instagram</button>
+        <button class="pill" onclick="setPlatFilter('linkedin',this)">LinkedIn</button>
+        <button class="pill" onclick="setPlatFilter('youtube',this)">YouTube</button>
+        <button class="pill" onclick="setPlatFilter('tiktok',this)">TikTok</button>
+        <button class="pill" onclick="setPlatFilter('twitter',this)">Twitter / X</button>
+        <button class="pill" onclick="setPlatFilter('other',this)">Other</button>
+      </div>
+      <div class="view-sort">
+        <select class="sort-select" onchange="sortMode=this.value;render()">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+        </select>
+        <div class="view-btns">
+          <button class="view-btn active" id="gBtn" onclick="setView('grid')">
+            <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+          </button>
+          <button class="view-btn" id="lBtn" onclick="setView('list')">
+            <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="2" rx=".5"/><rect x="1" y="7" width="14" height="2" rx=".5"/><rect x="1" y="12" width="14" height="2" rx=".5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-row-wrap" id="uploaderFilterRow" style="display:none">
+      <span class="filter-section-label">Uploader</span>
+      <div class="filter-row" id="uploaderPills"></div>
+      <button class="tag-filter-clear" id="uploaderClearBtn" onclick="clearUploaderFilter()" style="display:none">Clear</button>
+    </div>
+    <div class="filter-row-wrap" id="tagFilterRow" style="display:none">
+      <span class="filter-section-label">Tags</span>
+      <div class="filter-row" id="tagPills"></div>
+      <button class="tag-filter-clear" id="tagClearBtn" onclick="clearTagFilter()" style="display:none">Clear</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="config-banner" id="configBanner">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><line x1="8" y1="5" x2="8" y2="8"/><circle cx="8" cy="11" r=".5" fill="currentColor"/></svg>
+    <span>Connect the Worker to enable shared sync. <a href="#" onclick="openWorkerConfig();return false">Add your Worker URL →</a></span>
+    <button onclick="document.getElementById('configBanner').classList.add('hidden')" style="margin-left:auto;background:none;border:none;color:var(--text-3);cursor:pointer;font-size:16px;line-height:1">×</button>
+  </div>
+
+  <div class="stats">
+    <span id="statsText">0 videos</span>
+    <span class="sync-badge"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">local</span></span>
+    <span style="margin-left:auto;display:flex;gap:8px">
+      <button onclick="exportData()" style="background:none;border:none;font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-3);cursor:pointer;display:flex;align-items:center;gap:4px;padding:0" title="Download backup">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" style="width:12px;height:12px"><polyline points="8 2 8 10"/><polyline points="5 7 8 10 11 7"/><rect x="2" y="12" width="12" height="2" rx="1"/></svg>
+        Export
+      </button>
+      <button onclick="restoreBackup()" style="background:none;border:none;font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--text-3);cursor:pointer;display:flex;align-items:center;gap:4px;padding:0" title="Restore last auto-save">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" style="width:12px;height:12px"><polyline points="2 8 5 5 8 8"/><path d="M5 5h6a4 4 0 0 1 0 8H5"/></svg>
+        Restore backup
+      </button>
+    </span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- Add Modal -->
+<div class="overlay hidden" id="addModal" onclick="maybeClose(event,'addModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <span class="modal-title">Add a video</span>
+      <button class="close-btn" onclick="closeModal('addModal')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+      </button>
+    </div>
+    <div class="field">
+      <span class="label">Video URL</span>
+      <input class="inp" id="fUrl" type="url" placeholder="https://…" oninput="onUrl(this.value)">
+      <div id="dupWarning" style="display:none;margin-top:6px;background:rgba(255,99,0,.1);border:1px solid rgba(255,99,0,.3);border-radius:6px;padding:8px 12px;font-size:12px;color:#FF9200;line-height:1.5">
+        ⚠️ This link is already in the library — <strong id="dupTitle"></strong>.
+        <a id="dupLink" href="#" style="color:#FF9200;font-weight:600;text-decoration:underline" onclick="viewDuplicate(event)">View it →</a>
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Title</span>
+      <input class="inp" id="fTitle" type="text" placeholder="What's this video?" spellcheck="true" autocorrect="on">
+    </div>
+    <div class="field">
+      <span class="label">What you loved about it</span>
+      <textarea class="ta" id="fNote" placeholder="The pacing in the first 5 seconds, the way they cut to silence…" spellcheck="true" autocorrect="on"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="field">
+        <span class="label">Platform</span>
+        <select class="sel" id="fPlatform">
+          <option value="instagram">Instagram</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="youtube">YouTube</option>
+          <option value="tiktok">TikTok</option>
+          <option value="twitter">Twitter / X</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <span class="label">Added by</span>
+        <select class="sel" id="fBy" onchange="onByChange('fBy','fByCustom')">
+          <option value="">Select your name…</option>
+          <option value="AJ">AJ</option>
+          <option value="Magic">Magic</option>
+          <option value="Chris">Chris</option>
+          <option value="Hussein">Hussein</option>
+          <option value="Greg">Greg</option>
+          <option value="Gabe">Gabe</option>
+          <option value="__other__">Other (type name)…</option>
+        </select>
+        <input class="inp" id="fByCustom" type="text" placeholder="Your name" style="display:none;margin-top:6px">
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Tags</span>
+      <div class="tag-suggestions" id="tagSuggest"></div>
+      <div class="tags-wrap" id="tagsWrap" onclick="document.getElementById('tagInp').focus()">
+        <input class="tag-inp" id="tagInp" placeholder="Type a tag and press Enter…" onkeydown="onTagKey(event)">
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Thumbnail</span>
+      <div id="thumbSection">
+        <div id="thumbEmpty">
+          <label class="upload-zone" for="thumbFile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Upload screenshot or thumbnail</span>
+            <span style="font-size:11px;color:var(--text-3)">Auto-fetched from URL when possible</span>
+            <input type="file" id="thumbFile" accept="image/*" onchange="onThumbFile(event)">
+          </label>
+          <input class="inp" id="fThumbUrl" type="text" placeholder="Or paste a thumbnail URL…" oninput="onThumbUrlManual(this.value)" style="margin-top:8px">
+        </div>
+        <div class="thumb-preview-wrap" id="thumbWrap">
+          <img id="thumbImg" alt="">
+          <div class="thumb-fetching hidden" id="thumbFetching">
+            <div class="spinner"></div>
+            <span>Fetching thumbnail…</span>
+          </div>
+          <div class="thumb-change-bar">
+            <span class="thumb-source-badge" id="thumbSourceBadge"></span>
+            <div style="display:flex;gap:6px">
+              <label class="thumb-change-btn" for="thumbReplace">Replace</label>
+              <input type="file" id="thumbReplace" accept="image/*" onchange="onThumbReplace(event)">
+              <button class="thumb-change-btn" onclick="clearThumb()">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="submit" onclick="submitEntry()">Add to library</button>
+  </div>
+</div>
+
+<!-- Worker Config Modal -->
+<div class="overlay hidden" id="workerModal" onclick="maybeClose(event,'workerModal')">
+  <div class="modal" style="max-width:400px" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <span class="modal-title">Connect Worker</span>
+      <button class="close-btn" onclick="closeModal('workerModal')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+      </button>
+    </div>
+    <div class="field">
+      <span class="label">Cloudflare Worker URL</span>
+      <input class="inp" id="wUrl" type="url" placeholder="https://inspo-api.your-name.workers.dev">
+    </div>
+    <div class="field">
+      <span class="label">API Secret</span>
+      <input class="inp" id="wSecret" type="password" placeholder="The API_SECRET you set in the Worker">
+    </div>
+    <p style="font-size:12px;color:var(--text-3);line-height:1.6">Once connected, entries added via iOS Shortcut or Slack will appear here automatically. The library will poll for new entries every 30 seconds.</p>
+    <button class="submit" onclick="saveWorkerConfig()">Save & connect</button>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="detail-overlay hidden" id="detailModal" onclick="maybeClose(event,'detailModal')">
+  <div class="detail-modal" onclick="event.stopPropagation()">
+    <div id="detailInner"></div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="overlay hidden" id="editModal" onclick="maybeClose(event,'editModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <span class="modal-title">Edit video</span>
+      <button class="close-btn" onclick="closeModal('editModal')">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+      </button>
+    </div>
+    <div class="field">
+      <span class="label">Video URL</span>
+      <input class="inp" id="eUrl" type="url" placeholder="https://…">
+    </div>
+    <div class="field">
+      <span class="label">Title</span>
+      <input class="inp" id="eTitle" type="text" placeholder="What's this video?" spellcheck="true" autocorrect="on">
+    </div>
+    <div class="field">
+      <span class="label">What you loved about it</span>
+      <textarea class="ta" id="eNote" placeholder="The pacing in the first 5 seconds…" spellcheck="true" autocorrect="on"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="field">
+        <span class="label">Platform</span>
+        <select class="sel" id="ePlatform">
+          <option value="instagram">Instagram</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="youtube">YouTube</option>
+          <option value="tiktok">TikTok</option>
+          <option value="twitter">Twitter / X</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <span class="label">Added by</span>
+        <select class="sel" id="eBy" onchange="onByChange('eBy','eByCustom')">
+          <option value="">Select your name…</option>
+          <option value="AJ">AJ</option>
+          <option value="Magic">Magic</option>
+          <option value="Chris">Chris</option>
+          <option value="Hussein">Hussein</option>
+          <option value="Greg">Greg</option>
+          <option value="Gabe">Gabe</option>
+          <option value="__other__">Other (type name)…</option>
+        </select>
+        <input class="inp" id="eByCustom" type="text" placeholder="Your name" style="display:none;margin-top:6px">
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Tags</span>
+      <div class="tag-suggestions" id="eTagSuggest"></div>
+      <div class="tags-wrap" id="eTagsWrap" onclick="document.getElementById('eTagInp').focus()">
+        <input class="tag-inp" id="eTagInp" placeholder="Type a tag and press Enter…" onkeydown="onEditTagKey(event)">
+      </div>
+    </div>
+    <button class="submit" onclick="submitEdit()">Save changes</button>
+  </div>
+</div>
+
+
+<div class="toast" id="toast">
+  <span class="toast-dot" id="toastDot"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let entries = [], filter = 'all', tagFilter = '', uploaderFilter = '', view = 'grid', sortMode = 'newest';
+let tagLibrary = [];
+let tags = [], thumbVal = '', thumbSource = '';
+let workerUrl = '', workerSecret = '';
+let pollTimer = null;
+const SK = 'inspo_v3';
+
+// ── Storage ────────────────────────────────────────────────────────────────
+async function load() {
+  workerUrl = 'https://white-snow-abf0.alex-jacobsen.workers.dev';
+  try { workerSecret = localStorage.getItem('inspo_secret') || ''; } catch(e) {}
+  document.getElementById('configBanner').classList.add('hidden');
+  updateSyncBadge(true);
+  startPolling();
+  try {
+    await syncFromWorker();
+  } catch(e) { entries = []; }
+  try {
+    const tr = await fetch(`${workerUrl}/tags`);
+    if (tr.ok) tagLibrary = await tr.json();
+  } catch(e) {}
+  renderTagFilterPills();
+  renderUploaderPills();
+  render();
+}
+
+async function save() {
+  try { localStorage.setItem(SK, JSON.stringify(entries)); } catch(e) {}
+}
+
+// ── Worker sync ────────────────────────────────────────────────────────────
+async function syncFromWorker() {
+  if (!workerUrl) return;
+  try {
+    const r = await fetch(`${workerUrl}/entries`);
+    if (r.ok) {
+      const data = await r.json();
+      entries = data;
+      updateSyncBadge(true);
+      renderUploaderPills();
+    }
+  } catch(e) { updateSyncBadge(false, true); }
+}
+
+function startPolling() {
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    await syncFromWorker();
+    render();
+  }, 30000);
+}
+
+function updateSyncBadge(connected, error = false) {
+  const dot = document.getElementById('syncDot');
+  const label = document.getElementById('syncLabel');
+  if (error) { dot.style.background = '#FF5000'; label.textContent = 'sync error'; }
+  else if (connected) { dot.classList.add('live'); label.textContent = 'synced'; }
+  else { dot.style.background = 'var(--text-3)'; label.textContent = 'local'; }
+}
+
+function openWorkerConfig() {
+  document.getElementById('wUrl').value = workerUrl;
+  document.getElementById('wSecret').value = workerSecret;
+  document.getElementById('workerModal').classList.remove('hidden');
+}
+
+async function saveWorkerConfig() {
+  workerSecret = document.getElementById('wSecret').value.trim();
+  try { localStorage.setItem('inspo_secret', workerSecret); } catch(e) {}
+  closeModal('workerModal');
+  toast('Secret saved');
+}
+
+// ── Platform detection ─────────────────────────────────────────────────────
+function platFromUrl(u) {
+  if (!u) return 'other';
+  const l = u.toLowerCase();
+  if (l.includes('instagram')) return 'instagram';
+  if (l.includes('linkedin')) return 'linkedin';
+  if (l.includes('youtu')) return 'youtube';
+  if (l.includes('tiktok')) return 'tiktok';
+  if (l.includes('twitter') || l.includes('x.com')) return 'twitter';
+  return 'other';
+}
+
+// ── Auto-thumbnail fetching ────────────────────────────────────────────────
+function ytThumb(u) {
+  const m = u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return m ? `https://img.youtube.com/vi/${m[1]}/maxresdefault.jpg` : null;
+}
+
+async function autoFetchThumb(url) {
+  const plat = platFromUrl(url);
+  if (plat === 'youtube') {
+    const t = ytThumb(url);
+    if (t) { setThumb(t, 'Auto-fetched · YouTube'); return; }
+  }
+  if (url.includes('vimeo')) {
+    const m = url.match(/vimeo\.com\/(\d+)/);
+    if (m) {
+      try {
+        const r = await fetch(`https://vimeo.com/api/v2/video/${m[1]}.json`);
+        const d = await r.json();
+        if (d[0]?.thumbnail_large) { setThumb(d[0].thumbnail_large, 'Auto-fetched · Vimeo'); return; }
+      } catch(e) {}
+    }
+  }
+  try {
+    showFetching(true);
+    const r = await fetch(`${workerUrl}/thumb?url=${encodeURIComponent(url)}`);
+    const d = await r.json();
+    if (d.thumb) { setThumb(d.thumb, 'Auto-fetched'); return; }
+  } catch(e) {}
+  showFetching(false);
+}
+
+function showFetching(on) {
+  const w = document.getElementById('thumbWrap');
+  const f = document.getElementById('thumbFetching');
+  if (on) { w.classList.add('on'); document.getElementById('thumbEmpty').style.display = 'none'; f.classList.remove('hidden'); }
+  else { f.classList.add('hidden'); }
+}
+
+function setThumb(src, label, manual = false) {
+  thumbVal = src; thumbSource = label || '';
+  const img = document.getElementById('thumbImg');
+  img.src = src;
+  img.onerror = () => { if (!manual) clearThumb(); };
+  document.getElementById('thumbWrap').classList.add('on');
+  document.getElementById('thumbEmpty').style.display = 'none';
+  document.getElementById('thumbSourceBadge').textContent = label || '';
+  document.getElementById('thumbFetching').classList.add('hidden');
+}
+
+function clearThumb() {
+  thumbVal = ''; thumbSource = '';
+  document.getElementById('thumbWrap').classList.remove('on');
+  document.getElementById('thumbEmpty').style.display = '';
+  document.getElementById('thumbImg').src = '';
+  document.getElementById('fThumbUrl').value = '';
+}
+
+let urlDebounce = null;
+let dupEntryId = null;
+function onUrl(v) {
+  document.getElementById('fPlatform').value = platFromUrl(v);
+  const warn = document.getElementById('dupWarning');
+  const trimmed = v.trim();
+  const dup = trimmed ? entries.find(e => e.url && e.url.trim() === trimmed) : null;
+  dupEntryId = dup ? dup.id : null;
+  if (dup) {
+    document.getElementById('dupTitle').textContent = dup.title || dup.url;
+    warn.style.display = 'block';
+  } else {
+    warn.style.display = 'none';
+  }
+  clearTimeout(urlDebounce);
+  if (!v) return;
+  urlDebounce = setTimeout(async () => {
+    if (!thumbVal && v.startsWith('http')) {
+      showFetching(true);
+      document.getElementById('thumbWrap').classList.add('on');
+      document.getElementById('thumbEmpty').style.display = 'none';
+      await autoFetchThumb(v);
+    }
+  }, 600);
+}
+function viewDuplicate(e) {
+  e.preventDefault();
+  if (!dupEntryId) return;
+  closeModal('addModal');
+  openDetail(dupEntryId);
+}
+function onThumbUrlManual(v) { if (v) setThumb(v, 'Manual URL', true); }
+async function uploadThumbToCloudinary(file) {
+  showFetching(true);
+  document.getElementById('thumbWrap').classList.add('on');
+  document.getElementById('thumbEmpty').style.display = 'none';
+  try {
+    const res = await fetch(`${workerUrl}/upload-thumb`, {
+      method: 'POST',
+      headers: { 'Content-Type': file.type || 'image/jpeg' },
+      body: file
+    });
+    if (!res.ok) throw new Error('Upload failed');
+    const data = await res.json();
+    if (data.url) return data.url;
+    throw new Error('No URL returned');
+  } catch(err) {
+    showFetching(false);
+    toast('Image upload failed', false);
+    return null;
+  }
+}
+
+async function onThumbFile(e) {
+  const f = e.target.files[0]; if (!f) return;
+  const url = await uploadThumbToCloudinary(f);
+  if (url) setThumb(url, 'Uploaded', true);
+}
+function onThumbReplace(e) { onThumbFile(e); }
+
+// ── Tags ──────────────────────────────────────────────────────────────────
+function onTagKey(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const v = e.target.value.trim().replace(/,$/, '');
+    if (v && !tags.includes(v)) { tags.push(v); saveNewTagToLibrary(v); renderChips(); }
+    e.target.value = '';
+  }
+}
+function removeTag(t) { tags = tags.filter(x => x !== t); renderChips(); }
+function renderChips() {
+  const w = document.getElementById('tagsWrap'), inp = document.getElementById('tagInp');
+  w.innerHTML = '';
+  tags.forEach(t => {
+    const c = document.createElement('span'); c.className = 'tag-chip';
+    c.innerHTML = `${t}<button onclick="removeTag('${t}')">×</button>`;
+    w.appendChild(c);
+  });
+  w.appendChild(inp);
+  renderTagSuggestions('tagSuggest', tags, t => {
+    if (tags.includes(t)) { tags = tags.filter(x => x !== t); }
+    else { tags.push(t); }
+    renderChips();
+  });
+}
+
+// ── Submit ────────────────────────────────────────────────────────────────
+async function submitEntry() {
+  const title = document.getElementById('fTitle').value.trim();
+  if (!title) { toast('Please add a title', false); return; }
+  if (dupEntryId) { toast('This link is already in the library!', false); return; }
+  const entry = {
+    id: Date.now() + '',
+    url: document.getElementById('fUrl').value.trim(),
+    title,
+    note: document.getElementById('fNote').value.trim(),
+    platform: document.getElementById('fPlatform').value,
+    by: (document.getElementById('fBy').value === '__other__' ? document.getElementById('fByCustom').value.trim() : document.getElementById('fBy').value.trim()) || 'Team',
+    tags: [...tags],
+    thumb: thumbVal,
+    thumbSource,
+    at: Date.now()
+  };
+
+  if (workerUrl) {
+    try {
+      const addHeaders = { 'Content-Type': 'application/json' };
+      if (workerSecret) addHeaders['Authorization'] = `Bearer ${workerSecret}`;
+      const r = await fetch(`${workerUrl}/add`, {
+        method: 'POST',
+        headers: addHeaders,
+        body: JSON.stringify(entry)
+      });
+      if (!r.ok) throw new Error('Worker error');
+      await syncFromWorker();
+    } catch(e) {
+      entries.unshift(entry); save();
+      toast('Saved locally (Worker unreachable)');
+    }
+  } else {
+    entries.unshift(entry); save();
+  }
+
+  render(); closeModal('addModal'); resetForm();
+  toast('Added to the library');
+}
+
+function resetForm() {
+  ['fUrl','fTitle','fNote','fBy','fThumbUrl'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fPlatform').value = 'instagram';
+  document.getElementById('dupWarning').style.display = 'none';
+  document.getElementById('fByCustom').style.display = 'none';
+  dupEntryId = null;
+  clearThumb(); tags = []; renderChips();
+}
+
+// ── Filter / sort / view ──────────────────────────────────────────────────
+function setPlatFilter(p, el) {
+  filter = p;
+  document.querySelectorAll('#platRow .pill').forEach(x => x.classList.remove('active'));
+  el.classList.add('active'); render();
+}
+
+function setTagFilter(t) {
+  tagFilter = (tagFilter === t) ? '' : t;
+  renderTagFilterPills();
+  render();
+}
+
+function clearTagFilter() {
+  tagFilter = '';
+  renderTagFilterPills();
+  render();
+}
+
+function renderTagFilterPills() {
+  const row = document.getElementById('tagPills');
+  const wrap = document.getElementById('tagFilterRow');
+  const clearBtn = document.getElementById('tagClearBtn');
+  if (!row) return;
+  if (!tagLibrary.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'flex';
+  row.innerHTML = tagLibrary.map(t => {
+    const safe = t.replace(/'/g, "\\'");
+    const active = tagFilter === t ? ' tag-active' : '';
+    return `<span class="tag-pill-wrap">
+      <button class="pill${active}" onclick="setTagFilter('${safe}')">${t}</button>
+      <button class="tag-del" title="Delete tag" onclick="confirmDeleteTag('${safe}')">×</button>
+    </span>`;
+  }).join('');
+  clearBtn.style.display = tagFilter ? 'block' : 'none';
+}
+
+async function confirmDeleteTag(tag) {
+  if (!confirm(`Delete "${tag}" from the tag library?\n\nExisting videos tagged with it won't be affected.`)) return;
+  tagLibrary = tagLibrary.filter(t => t !== tag);
+  if (tagFilter === tag) { tagFilter = ''; }
+  renderTagFilterPills();
+  render();
+  try {
+    await fetch(`${workerUrl}/tags`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tag })
+    });
+  } catch(e) {}
+  toast(`"${tag}" removed from tag library`);
+}
+
+function setUploaderFilter(u) {
+  uploaderFilter = (uploaderFilter === u) ? '' : u;
+  renderUploaderPills();
+  render();
+}
+
+function clearUploaderFilter() {
+  uploaderFilter = '';
+  renderUploaderPills();
+  render();
+}
+
+const TEAM_MEMBERS = ['AJ', 'Magic', 'Chris', 'Hussein', 'Greg', 'Gabe'];
+
+function renderUploaderPills() {
+  const row = document.getElementById('uploaderPills');
+  const wrap = document.getElementById('uploaderFilterRow');
+  const clearBtn = document.getElementById('uploaderClearBtn');
+  if (!row) return;
+  wrap.style.display = 'flex';
+  row.innerHTML = TEAM_MEMBERS.map(u => {
+    const active = uploaderFilter === u ? ' tag-active' : '';
+    return `<button class="pill${active}" onclick="setUploaderFilter('${u}')">${u}</button>`;
+  }).join('');
+  clearBtn.style.display = uploaderFilter ? 'block' : 'none';
+}
+
+function setView(v) {
+  view = v;
+  document.getElementById('grid').classList.toggle('list-view', v === 'list');
+  document.getElementById('gBtn').classList.toggle('active', v === 'grid');
+  document.getElementById('lBtn').classList.toggle('active', v === 'list');
+}
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let r = entries.filter(e => {
+    if (filter !== 'all' && e.platform !== filter) return false;
+    if (uploaderFilter && e.by !== uploaderFilter) return false;
+    if (tagFilter && !(e.tags || []).includes(tagFilter)) return false;
+    if (q && !e.title.toLowerCase().includes(q) && !(e.note||'').toLowerCase().includes(q) && !(e.tags||[]).some(t => t.toLowerCase().includes(q))) return false;
+    return true;
+  });
+  if (sortMode === 'oldest') r = [...r].reverse();
+  return r;
+}
+
+const platLabel = { instagram:'Instagram', linkedin:'LinkedIn', youtube:'YouTube', tiktok:'TikTok', twitter:'Twitter / X', other:'Other' };
+
+// ── Render ────────────────────────────────────────────────────────────────
+function render() {
+  const g = document.getElementById('grid'), items = getFiltered();
+  document.getElementById('statsText').textContent = `${items.length} video${items.length !== 1 ? 's' : ''}`;
+  if (!items.length) {
+    g.innerHTML = `<div class="empty"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M10 10l6 3-6 3V10z" fill="currentColor" stroke="none" opacity="0.25"/></svg></div><p>No videos yet</p><small>Add a link, upload a screenshot, or drop one in Slack via /inspo.</small></div>`;
+    return;
+  }
+  g.innerHTML = items.map(e => {
+    const thumb = e.thumb
+      ? `<img class="card-thumb" src="${e.thumb}" alt="" onerror="this.style.display='none'">`
+      : `<div class="card-thumb-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M10 10l6 3-6 3V10z" fill="currentColor" stroke="none" opacity="0.2"/></svg></div>`;
+    const tagsHtml = (e.tags||[]).slice(0,5).map(t =>
+      `<span class="tag" onclick="event.stopPropagation();setTagFilter('${t.replace(/'/g,"\\'")}');render()">${t}</span>`
+    ).join('');
+    return `<div class="card" onclick="openDetail('${e.id}')">
+      <div class="card-thumb-wrap">${thumb}</div>
+      ${e.url ? `<a href="${e.url}" target="_blank" class="ext-link" onclick="event.stopPropagation()"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 2h4v4"/><path d="M14 2L7 9"/><path d="M7 4H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-4"/></svg></a>` : ''}
+      <div class="card-body">
+        <div class="card-top"><span class="plat">${platLabel[e.platform]||e.platform}</span><span class="by">${e.by}${e.at ? ' · ' + new Date(e.at).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : ''}</span></div>
+        <div class="card-title">${e.title}</div>
+        ${e.note ? `<div class="card-note">"${e.note}"</div>` : ''}
+        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Detail ────────────────────────────────────────────────────────────────
+function openDetail(id) {
+  const e = entries.find(x => x.id === id); if (!e) return;
+  const date = new Date(e.at).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+  const tagsHtml = (e.tags||[]).map(t =>
+    `<span class="tag" onclick="closeModal('detailModal');setTagFilter('${t.replace(/'/g,"\\'")}');render()">${t}</span>`
+  ).join('');
+  const thumbArea = e.thumb
+    ? `<div class="detail-thumb-wrap">
+        <img class="detail-thumb" src="${e.thumb}" alt="">
+        <div class="detail-thumb-edit">
+          <label for="dFile_${e.id}">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M2 10l4-4 3 3 2-2 3 3"/></svg>
+            Replace
+            <input type="file" id="dFile_${e.id}" accept="image/*" onchange="replaceDetailThumb('${e.id}',event)">
+          </label>
+          <button onclick="removeDetailThumb('${e.id}')">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+            Remove
+          </button>
+        </div>
+      </div>`
+    : `<div class="detail-thumb-empty" style="border-radius:13px 13px 0 0">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <svg style="width:32px;height:32px;color:var(--text-3)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M10 10l6 3-6 3V10z" fill="currentColor" stroke="none" opacity="0.15"/></svg>
+          <label for="dFile_${e.id}" style="font-size:12px;color:var(--text-3);cursor:pointer;border:1px dashed var(--border);border-radius:6px;padding:6px 14px">
+            Add thumbnail
+            <input type="file" id="dFile_${e.id}" accept="image/*" onchange="replaceDetailThumb('${e.id}',event)" style="display:none">
+          </label>
+        </div>
+      </div>`;
+
+  document.getElementById('detailInner').innerHTML = `
+    ${thumbArea}
+    <div class="detail-body">
+      <div class="detail-hd">
+        <div>
+          <div class="detail-title">${e.title}</div>
+          <div class="detail-sub">
+            <span class="plat">${platLabel[e.platform]||e.platform}</span>
+            <span style="font-size:11px;color:var(--text-3)">· ${e.by} · ${date}</span>
+          </div>
+        </div>
+        <button class="close-btn" onclick="closeModal('detailModal')">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+        </button>
+      </div>
+      ${e.note ? `<div class="detail-note">${e.note}</div>` : ''}
+      ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+      <div class="detail-ft">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${e.url ? `<a href="${e.url}" target="_blank" class="open-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 2h4v4"/><path d="M14 2L7 9"/><path d="M7 4H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-4"/></svg> Open video</a>` : ''}
+          <button class="open-btn" onclick="openEdit('${e.id}')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 2l3 3-8 8H3v-3l8-8z"/></svg> Edit</button>
+        </div>
+        <button class="del-btn" onclick="del('${e.id}')">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="2 4 14 4"/><path d="M5 4V2h6v2"/><path d="M6 7v5M10 7v5"/><rect x="3" y="4" width="10" height="10" rx="1"/></svg>
+          Remove
+        </button>
+      </div>
+    </div>`;
+  document.getElementById('detailModal').classList.remove('hidden');
+}
+
+async function replaceDetailThumb(id, e) {
+  const f = e.target.files[0]; if (!f) return;
+  const entry = entries.find(x => x.id === id); if (!entry) return;
+  try {
+    // Upload raw file to Cloudinary via worker
+    const res = await fetch(`${workerUrl}/upload-thumb`, {
+      method: 'POST',
+      headers: { 'Content-Type': f.type || 'image/jpeg' },
+      body: f
+    });
+    if (!res.ok) throw new Error('Upload failed');
+    const data = await res.json();
+    if (!data.url) throw new Error('No URL returned');
+    entry.thumb = data.url; entry.thumbSource = 'Uploaded';
+    await fetch(`${workerUrl}/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, thumb: entry.thumb, thumbSource: 'Uploaded' })
+    });
+    await syncFromWorker();
+  } catch(err) {
+    toast('Thumbnail upload failed', false); return;
+  }
+  render(); openDetail(id); toast('Thumbnail updated');
+}
+async function removeDetailThumb(id) {
+  const entry = entries.find(x => x.id === id); if (!entry) return;
+  entry.thumb = ''; entry.thumbSource = '';
+  try {
+    await fetch(`${workerUrl}/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, thumb: '', thumbSource: '' })
+    });
+    await syncFromWorker();
+  } catch(err) { save(); }
+  render(); openDetail(id); toast('Thumbnail removed');
+}
+async function del(id) {
+  if (!confirm('Remove this from the library?')) return;
+  try {
+    await fetch(`${workerUrl}/delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id })
+    });
+    await syncFromWorker();
+  } catch(err) {
+    entries = entries.filter(e => e.id !== id); save();
+  }
+  render(); closeModal('detailModal'); toast('Removed');
+}
+
+function openAdd() {
+  document.getElementById('addModal').classList.remove('hidden');
+  renderTagSuggestions('tagSuggest', tags, t => {
+    if (tags.includes(t)) { tags = tags.filter(x => x !== t); }
+    else { tags.push(t); }
+    renderChips();
+  });
+}
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function maybeClose(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+function toast(msg, ok = true) {
+  document.getElementById('toastDot').style.background = ok ? 'var(--green)' : 'var(--red)';
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast'); t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2600);
+}
+
+// ── Edit ──────────────────────────────────────────────────────────────────
+let editId = '', editTags = [];
+
+function openEdit(id) {
+  const e = entries.find(x => x.id === id); if (!e) return;
+  editId = id; editTags = [...(e.tags || [])];
+  document.getElementById('eUrl').value = e.url || '';
+  document.getElementById('eTitle').value = e.title || '';
+  document.getElementById('eNote').value = e.note || '';
+  document.getElementById('ePlatform').value = e.platform || 'other';
+  const TEAM = ['AJ','Magic','Chris','Hussein','Greg','Gabe'];
+  const byVal = e.by || '';
+  if (TEAM.includes(byVal)) {
+    document.getElementById('eBy').value = byVal;
+    document.getElementById('eByCustom').style.display = 'none';
+  } else if (byVal) {
+    document.getElementById('eBy').value = '__other__';
+    document.getElementById('eByCustom').value = byVal;
+    document.getElementById('eByCustom').style.display = 'block';
+  } else {
+    document.getElementById('eBy').value = '';
+    document.getElementById('eByCustom').style.display = 'none';
+  }
+  renderEditChips();
+  closeModal('detailModal');
+  document.getElementById('editModal').classList.remove('hidden');
+}
+
+function onEditTagKey(e) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    const v = e.target.value.trim().replace(/,$/, '');
+    if (v && !editTags.includes(v)) { editTags.push(v); saveNewTagToLibrary(v); renderEditChips(); }
+    e.target.value = '';
+  }
+}
+
+function removeEditTag(t) { editTags = editTags.filter(x => x !== t); renderEditChips(); }
+
+function renderEditChips() {
+  const w = document.getElementById('eTagsWrap'), inp = document.getElementById('eTagInp');
+  w.innerHTML = '';
+  editTags.forEach(t => {
+    const c = document.createElement('span'); c.className = 'tag-chip';
+    c.innerHTML = `${t}<button onclick="removeEditTag('${t}')">×</button>`;
+    w.appendChild(c);
+  });
+  w.appendChild(inp);
+  renderTagSuggestions('eTagSuggest', editTags, t => {
+    if (editTags.includes(t)) { editTags = editTags.filter(x => x !== t); }
+    else { editTags.push(t); }
+    renderEditChips();
+  });
+}
+
+async function submitEdit() {
+  const title = document.getElementById('eTitle').value.trim();
+  if (!title) { toast('Please add a title', false); return; }
+  const updates = {
+    id: editId,
+    url: document.getElementById('eUrl').value.trim(),
+    title,
+    note: document.getElementById('eNote').value.trim(),
+    platform: document.getElementById('ePlatform').value,
+    by: (document.getElementById('eBy').value === '__other__' ? document.getElementById('eByCustom').value.trim() : document.getElementById('eBy').value.trim()),
+    tags: [...editTags]
+  };
+  try {
+    const r = await fetch(`${workerUrl}/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updates)
+    });
+    if (!r.ok) throw new Error('Worker error');
+    await syncFromWorker(); render(); closeModal('editModal'); toast('Updated!');
+  } catch(err) {
+    const idx = entries.findIndex(x => x.id === editId);
+    if (idx !== -1) { entries[idx] = { ...entries[idx], ...updates }; save(); render(); }
+    closeModal('editModal'); toast('Updated!');
+  }
+}
+
+// ── Tag library helpers ───────────────────────────────────────────────────
+function renderTagSuggestions(containerId, selectedTags, onSelect) {
+  const container = document.getElementById(containerId);
+  if (!container || !tagLibrary.length) return;
+  container.innerHTML = '';
+  const lbl = document.createElement('span');
+  lbl.className = 'tag-suggest-label';
+  lbl.textContent = 'Available tags — click to add or remove';
+  container.appendChild(lbl);
+  tagLibrary.forEach(t => {
+    const pill = document.createElement('button');
+    pill.className = 'tag-suggest' + (selectedTags.includes(t) ? ' used' : '');
+    pill.textContent = t;
+    pill.type = 'button';
+    pill.onclick = () => { onSelect(t); };
+    container.appendChild(pill);
+  });
+}
+
+async function saveNewTagToLibrary(tag) {
+  if (!tag || tagLibrary.includes(tag)) return;
+  tagLibrary.push(tag);
+  renderTagFilterPills();
+  try {
+    await fetch(`${workerUrl}/tags`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tag })
+    });
+  } catch(e) {}
+}
+
+function onByChange(selId, inpId) {
+  const sel = document.getElementById(selId);
+  const inp = document.getElementById(inpId);
+  inp.style.display = sel.value === '__other__' ? 'block' : 'none';
+  if (sel.value === '__other__') inp.focus();
+}
+
+
+// ── Export / Restore ──────────────────────────────────────────────────────
+function exportData() {
+  if (!entries.length) { toast('Nothing to export yet', false); return; }
+  const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `inspo-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast(`Exported ${entries.length} entries`);
+}
+
+async function restoreBackup() {
+  try {
+    const r = await fetch(`${workerUrl}/backup`);
+    if (!r.ok) { toast('No backup found', false); return; }
+    const backup = await r.json();
+    if (!backup.entries?.length) { toast('Backup is empty', false); return; }
+    const savedAt = backup.savedAt ? new Date(backup.savedAt).toLocaleString() : 'unknown time';
+    if (!confirm(`Restore ${backup.entries.length} entries from backup?\nSaved: ${savedAt}\n\nThe current library will be replaced.`)) return;
+    const res = await fetch(`${workerUrl}/restore`, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+    if (!res.ok) throw new Error('Restore failed');
+    await syncFromWorker();
+    render();
+    toast(`Restored ${backup.entries.length} entries`);
+  } catch(e) {
+    toast('Restore failed', false);
+  }
+}
+
+load();
+</script>
+</body>
+</html>
