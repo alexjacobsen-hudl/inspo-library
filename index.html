@@ -207,9 +207,33 @@ main{padding:28px 32px 80px}
 .tag-del:hover{color:var(--red)}
 
 
+
+/* ── Login Gate ── */
+#loginGate{position:fixed;inset:0;z-index:9999;background:#F4F5F7;display:flex;align-items:center;justify-content:center;font-family:'Barlow',sans-serif}
+#loginGate.hidden{display:none}
+.login-box{background:#fff;border:1px solid #D2D7DE;border-radius:12px;padding:48px 40px;width:100%;max-width:380px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.login-logo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.04em;color:#101417;text-transform:uppercase;margin-bottom:8px}
+.login-logo span{color:#FF6300}
+.login-sub{font-size:13px;color:#4E5D6C;margin-bottom:32px}
+.login-input{width:100%;background:#F4F5F7;border:1px solid #D2D7DE;border-radius:6px;padding:10px 14px;font-family:'Barlow',sans-serif;font-size:14px;color:#101417;outline:none;margin-bottom:12px;transition:border-color .15s}
+.login-input:focus{border-color:#FF6300}
+.login-btn{width:100%;background:#FF6300;color:#fff;border:none;border-radius:6px;padding:11px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.login-btn:hover{background:#FF5000}
+.login-error{font-size:12px;color:#FF5000;margin-top:8px;min-height:16px}
 </style>
 </head>
 <body>
+
+<!-- ── Login Gate ── -->
+<div id="loginGate">
+  <div class="login-box">
+    <div class="login-logo">Hudl <span>Inspo</span></div>
+    <div class="login-sub">Enter the password to access the library</div>
+    <input class="login-input" id="loginInput" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">Enter</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
 
 <header>
   <div class="header-top">
@@ -1181,6 +1205,33 @@ async function restoreBackup() {
     toast('Restore failed', false);
   }
 }
+
+// ── Login Gate ────────────────────────────────────────────────────────────
+const PWD_KEY = 'inspo_auth';
+const CORRECT_PWD = 'HudlVideo';
+
+function tryLogin() {
+  const val = document.getElementById('loginInput').value;
+  if (val === CORRECT_PWD) {
+    try { sessionStorage.setItem(PWD_KEY, '1'); } catch(e) {}
+    document.getElementById('loginGate').classList.add('hidden');
+    document.getElementById('loginInput').value = '';
+    document.getElementById('loginError').textContent = '';
+  } else {
+    document.getElementById('loginError').textContent = 'Incorrect password. Try again.';
+    document.getElementById('loginInput').value = '';
+    document.getElementById('loginInput').focus();
+  }
+}
+
+// Check if already authenticated this session
+(function() {
+  try {
+    if (sessionStorage.getItem(PWD_KEY) === '1') {
+      document.getElementById('loginGate').classList.add('hidden');
+    }
+  } catch(e) {}
+})();
 
 load();
 </script>
