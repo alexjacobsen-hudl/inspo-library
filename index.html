@@ -693,7 +693,7 @@ async function uploadThumbToCloudinary(file) {
   try {
     const res = await fetch(`${workerUrl}/upload-thumb`, {
       method: 'POST',
-      headers: { 'Content-Type': file.type || 'image/jpeg' },
+      headers: { 'Content-Type': file.type || 'image/jpeg', ...(workerSecret ? { 'Authorization': `Bearer ${workerSecret}` } : {}) },
       body: file
     });
     if (!res.ok) throw new Error('Upload failed');
@@ -990,7 +990,7 @@ async function replaceDetailThumb(id, e) {
     // Upload raw file to Cloudinary via worker
     const res = await fetch(`${workerUrl}/upload-thumb`, {
       method: 'POST',
-      headers: { 'Content-Type': f.type || 'image/jpeg' },
+      headers: { 'Content-Type': f.type || 'image/jpeg', ...(workerSecret ? { 'Authorization': `Bearer ${workerSecret}` } : {}) },
       body: f
     });
     if (!res.ok) throw new Error('Upload failed');
